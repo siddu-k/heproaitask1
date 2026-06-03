@@ -1,30 +1,37 @@
-pipeline {
-    agent any
-
-    stages {
-
-        stage('Checkout') {
-            steps {
-                git branch: 'main',
-                    url: 'https://github.com/siddu-k/heproaitask1.git'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                sh 'echo Building Application...'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh '''
-                python3 -m venv venv
-                venv/bin/pip install --upgrade pip
-                venv/bin/pip install pytest
-                venv/bin/pytest
-                '''
-            }
-        }
-    }
+pipeline { 
+    agent any 
+ 
+    stages { 
+ 
+        stage('Checkout') { 
+            steps { 
+                git branch: 'main', 
+                url: 'https://github.com/username/myapp.git' 
+            } 
+        } 
+ 
+        stage('Test') { 
+            steps { 
+                sh 'pytest' 
+            } 
+        } 
+ 
+        stage('Build Docker Image') { 
+            steps { 
+                sh 'docker build -t siddu99/myapp:latest .' 
+            } 
+        } 
+ 
+        stage('Push Image') { 
+            steps { 
+                sh 'docker push siddu99/myapp:latest' 
+            } 
+        } 
+ 
+        stage('Deploy to Staging') { 
+            steps { 
+                sh 'docker-compose -f docker-compose.staging.yml up -d' 
+            } 
+        } 
+    } 
 }
