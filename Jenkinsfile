@@ -30,7 +30,7 @@ pipeline {
  
         stage('Deploy to Staging') { 
             steps { 
-                sh 'docker-compose -f docker-compose.staging.yml up -d' 
+                sh 'docker compose -f docker-compose.staging.yml up -d' 
             } 
         } 
     } 
