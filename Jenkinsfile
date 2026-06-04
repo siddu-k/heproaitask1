@@ -6,7 +6,7 @@ pipeline {
         stage('Checkout') { 
             steps { 
                 git branch: 'main', 
-                url: 'https://github.com/username/myapp.git' 
+                url: 'https://github.com/siddu-k/heproaitask1.git' 
             } 
         } 
  
